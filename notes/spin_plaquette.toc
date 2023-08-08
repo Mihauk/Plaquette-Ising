@@ -1,0 +1,9 @@
+\babel@toc {english}{}
+\contentsline {section}{\numberline {1}Hamiltonian}{3}{section.1}
+\contentsline {subsection}{\numberline {1.1}2-Ladder}{3}{subsection.1.1}
+\contentsline {subsubsection}{\numberline {1.1.1}Analytic Solution}{3}{subsubsection.1.1.1}
+\contentsline {paragraph}{Domain wall variables on short rungs}{3}{section*.3}
+\contentsline {paragraph}{Jordan Weigner transformation}{4}{section*.4}
+\contentsline {subsubsection}{\numberline {1.1.2}Numerics}{6}{subsubsection.1.1.2}
+\contentsline {subsection}{\numberline {1.2}3-Ladder}{11}{subsection.1.2}
+\contentsline {subsection}{\numberline {1.3}p-Ladder}{11}{subsection.1.3}
