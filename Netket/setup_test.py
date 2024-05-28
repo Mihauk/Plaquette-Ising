@@ -61,3 +61,5 @@ for i in range(grid):
     log=nk.logging.RuntimeLog()
     gs.run(n_iter=100,out=log)
     e_gs0 = e_gs0.at[i].set(log.data["Energy"].Mean[-1])
+
+plt.plot(theta,e_gs0/N)
