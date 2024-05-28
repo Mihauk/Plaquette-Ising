@@ -8,6 +8,7 @@ from scipy.sparse.linalg import eigsh
 from matplotlib import pyplot as plt
 import flax.linen as nn
 
+# Plaquette Ising Hamiltonian
 def H_pl_ising(K, delta, pl_int):
     hamiltonian = nk.operator.LocalOperator(hi)
     for site in g.nodes():
@@ -17,12 +18,14 @@ def H_pl_ising(K, delta, pl_int):
         hamiltonian = hamiltonian - K * sigmaz(hi, i)@sigmaz(hi, j)@sigmaz(hi, k)@sigmaz(hi, l)
     return hamiltonian
 
+# Look-up table for Plaquette interaction
 def sq_in(Lx,Ly,N):
     pl_in = [[i,(i+1)%N,(i+Lx)%N,(i+Lx+1)%N] for i in range(Lx*Ly)]
     for j in range(1,Ly+1):
         pl_in[j*Lx-1][-1] = pl_in[j*Lx-1][-1] - 2*Lx if(j<Ly-1) else pl_in[j*Lx-1][-1] + (Ly-2)*Lx
     return pl_in
 
+# Feed Forward Neural Net
 class FFN(nn.Module):
     alpha : int = 1
     @nn.compact
@@ -47,16 +50,8 @@ for i in range(grid):
     model = FFN(alpha=1)
     sampler = nk.sampler.MetropolisLocal(hi)
     vstate = nk.vqs.MCState(sampler, model, n_samples=10016)
-
-    # Then we create an optimiser from the standard library.
-    # You can also use optax.
     optimizer = nk.optimizer.Sgd(learning_rate=0.05)
-
-    # build the optimisation driver
     gs = nk.driver.VMC(hamiltonian, optimizer, variational_state=vstate,preconditioner=nk.optimizer.SR(diag_shift=0.1))
-
-    # run the driver for 300 iterations. This will display a progress bar
-    # by default.
 
     log=nk.logging.RuntimeLog()
     gs.run(n_iter=100,out=log)
